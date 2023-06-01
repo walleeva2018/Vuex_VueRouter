@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    {{ jsonData }}
+    <img
+      alt="Hacker Logo"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoCVbPndDMqRQBsns65_x6j-57k_x5X9-vKXM_L3Y5&s"
+    />
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+<script setup>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import { useStore } from "vuex";
 
-export default {
-  name: "HomeView",
-  components: {
-    HelloWorld,
-  },
-};
+const jsonData = ref(null);
+const store = useStore();
+
+onMounted(() => {
+  axios
+    .get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")
+    .then((response) => {
+      jsonData.value = response.data;
+      store.commit("setTopStoryID", jsonData.value);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+});
 </script>

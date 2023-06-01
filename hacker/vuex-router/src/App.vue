@@ -1,7 +1,9 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/topstory"> | Top Stories</router-link>
+    <router-link to="/beststory"> | Best Stories</router-link>
+    <router-link to="/newstory"> | New Stories</router-link>
   </nav>
   <router-view />
 </template>
