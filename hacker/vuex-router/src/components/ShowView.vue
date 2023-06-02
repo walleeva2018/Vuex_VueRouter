@@ -9,20 +9,26 @@
           <div v-if="result.url">
             <a :href="result.url" target="empty"> {{ result.title }}</a>
             <br />
-            <p>
-              Created by {{ result.by }} at
-              <span v-if="result.time">
-                {{ Date(result.time * 1000).toLocaleString() }}</span
+            Created by {{ result.by }} at
+            <span v-if="result.time">
+              {{ Date(result.time * 1000).toLocaleString() }}</span
+            >
+            <div @click="showContent = !showContent" class="clickable-area">
+              <span v-if="!showContent">
+                <div v-if="result.kids">
+                  {{ Object.keys(result.kids).length }} comments
+                  {{ store.getters.getCurrentFeed }}
+                </div></span
               >
-            </p>
+              <span v-else>Hide Comments</span>
+            </div>
             <br />
-            <div>{{ result.kids }} comments</div>
           </div>
           <div v-else>{{ result.title }}</div>
         </li>
       </ul>
     </div>
-
+    Page : {{ currentPage }} <br />
     <button @click="previousPage" :disabled="currentPage === 1">
       Previous
     </button>
@@ -39,8 +45,13 @@ import { useStore } from "vuex";
 const store = useStore();
 const call = store.getters.getCurrentFeed;
 const ids = ref([]);
+const showContent = ref(false);
 if (store.getters.getCurrentFeed == "TopStory") {
   ids.value = store.getters.getTopStoryID;
+} else if (store.getters.getCurrentFeed == "NewStory") {
+  ids.value = store.getters.getNewStoryID;
+} else if (store.getters.getCurrentFeed == "BestStory") {
+  ids.value = store.getters.getBestStoryID;
 }
 
 const resultsPerPage = 10;
@@ -111,5 +122,10 @@ function nextPage() {
   border-radius: 4px;
   padding: 10px;
   margin: 5px;
+}
+.clickable-area {
+  cursor: pointer;
+  padding: 10px;
+  background-color: lightgray;
 }
 </style>

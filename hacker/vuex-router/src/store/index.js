@@ -4,6 +4,8 @@ const store = createStore({
   state: {
     TopStoryID: null,
     currentFeed: null,
+    BestStoryID: null,
+    NewStoryID: null,
   },
   mutations: {
     setTopStoryID(state, data) {
@@ -12,6 +14,12 @@ const store = createStore({
     setCurrentFeed(state, date) {
       state.currentFeed = date;
     },
+    setBestStoryID(state, data) {
+      state.BestStoryID = data;
+    },
+    setNewStoryID(state, data) {
+      state.NewStoryID = data;
+    },
   },
   getters: {
     getTopStoryID(state) {
@@ -19,6 +27,12 @@ const store = createStore({
     },
     getCurrentFeed(state) {
       return state.currentFeed;
+    },
+    getBestStoryID(state) {
+      return state.BestStoryID;
+    },
+    getNewStoryID(state) {
+      return state.NewStoryID;
     },
   },
 });
