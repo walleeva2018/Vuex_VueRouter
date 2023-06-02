@@ -1,6 +1,5 @@
 <template>
   <div>
-    <router-view />
     <h1>{{ call }}</h1>
     <div v-if="loading">Loading...</div>
     <div v-else-if="error">Error occurred: {{ error }}</div>
@@ -30,6 +29,15 @@
               <span v-if="!result.comment">
                 <span v-if="result.kids" class="clickable-area">
                   {{ Object.keys(result.kids).length }} comments
+                  <router-link
+                    :to="{
+                      name: 'comments',
+                      params: {
+                        id: `${result.id}`,
+                      },
+                    }"
+                    >Open in Another Page
+                  </router-link>
                 </span></span
               >
               <span v-else class="clickable-area">

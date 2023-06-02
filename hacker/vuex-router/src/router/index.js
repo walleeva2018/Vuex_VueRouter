@@ -5,6 +5,7 @@ import Show from "../components/ShowView.vue";
 import NewStory from "../views/NewStories.vue";
 import BestStory from "../views/BestStories.vue";
 import UserView from "../views/UserView.vue";
+import CommentView from "../views/CommentViewPage.vue";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/user/:username",
     name: "user",
     component: UserView,
+  },
+  {
+    path: "/comment/:id",
+    name: "comments",
+    component: CommentView,
   },
 ];
 

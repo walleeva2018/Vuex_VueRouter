@@ -79,6 +79,7 @@ function updateComment(result) {
   border-radius: 4px;
   padding: 10px;
   margin: 5px;
+  color: black;
 }
 .clickable-area {
   cursor: pointer;

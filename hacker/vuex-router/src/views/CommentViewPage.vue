@@ -1,25 +1,29 @@
 <template>
-  <div v-if="loading == true" class="post-design">
-    <h2 class="title">User {{ $route.params.username }}</h2>
-    <br />
-    <br />
-    <div class="content">About: <span v-html="Data.about"></span></div>
-    <br />
-    <div class="author">Karma: {{ Data.karma }}</div>
+  <div v-if="loading" class="post-design">
+    <h2 class="title">Hacker News</h2>
+    <a :href="Data.url" target="empty">
+      <p class="content">{{ Data.title }}</p>
+    </a>
+    <p class="author">
+      Posted by: <span>{{ Data.by }}</span>
+      <CommentView />
+    </p>
   </div>
   <div v-else>Loading...</div>
 </template>
+
 <script setup>
+import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import { useRoute } from "vue-router";
-const route = useRoute();
-const Data = ref(null);
+import CommentView from "../components/CommentVIew.vue";
+const Data = ref(false);
 const loading = ref(false);
+const route = useRoute();
 onMounted(() => {
   axios
     .get(
-      `https://hacker-news.firebaseio.com/v0/user/${route.params.username}.json?print=pretty`
+      `https://hacker-news.firebaseio.com/v0/item/${route.params.id}.json?print=pretty`
     )
     .then((response) => {
       Data.value = response.data;
@@ -30,7 +34,6 @@ onMounted(() => {
     });
 });
 </script>
-
 <style scoped>
 .post-design {
   background-color: #f1f1f1;
