@@ -75,7 +75,7 @@ function updateComment(result) {
 }
 
 .banner-item {
-  background-color: orange;
+  background-color: rgb(255, 207, 119);
   border-radius: 4px;
   padding: 10px;
   margin: 5px;

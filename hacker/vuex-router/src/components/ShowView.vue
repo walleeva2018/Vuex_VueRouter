@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-view />
     <h1>{{ call }}</h1>
     <div v-if="loading">Loading...</div>
     <div v-else-if="error">Error occurred: {{ error }}</div>
@@ -10,9 +11,15 @@
             <a :href="result.url" target="empty"> {{ result.title }}</a>
             <br />
             Created by
-            <router-link :to="{ name: UseView, params: result.by }">{{
-              result.by
-            }}</router-link>
+            <router-link
+              :to="{
+                name: 'user',
+                params: {
+                  username: `${result.by}`,
+                },
+              }"
+              >{{ result.by }}</router-link
+            >
             at
             <span v-if="result.time">
               {{ Date(result.time * 1000).toLocaleString() }}</span
