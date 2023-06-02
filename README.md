@@ -1,4 +1,4 @@
-# vuex-vuerouter
+# vuex-router
 
 ## Project setup
 ```
