@@ -6,6 +6,7 @@ const store = createStore({
     currentFeed: null,
     BestStoryID: null,
     NewStoryID: null,
+    Commnets: null,
   },
   mutations: {
     setTopStoryID(state, data) {
@@ -20,6 +21,9 @@ const store = createStore({
     setNewStoryID(state, data) {
       state.NewStoryID = data;
     },
+    setComments(state, data) {
+      state.Commnets = data;
+    },
   },
   getters: {
     getTopStoryID(state) {
@@ -33,6 +37,9 @@ const store = createStore({
     },
     getNewStoryID(state) {
       return state.NewStoryID;
+    },
+    getComments(state) {
+      return state.Commnets;
     },
   },
 });

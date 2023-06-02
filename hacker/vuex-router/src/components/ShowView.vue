@@ -9,19 +9,28 @@
           <div v-if="result.url">
             <a :href="result.url" target="empty"> {{ result.title }}</a>
             <br />
-            Created by {{ result.by }} at
+            Created by
+            <router-link :to="{ name: UseView, params: result.by }">{{
+              result.by
+            }}</router-link>
+            at
             <span v-if="result.time">
               {{ Date(result.time * 1000).toLocaleString() }}</span
             >
-            <div @click="showContent = !showContent" class="clickable-area">
-              <span v-if="!showContent">
-                <div v-if="result.kids">
+            <br />
+            <br />
+            <div @click="updateComment(result)">
+              <span v-if="!result.comment">
+                <span v-if="result.kids" class="clickable-area">
                   {{ Object.keys(result.kids).length }} comments
-                  {{ store.getters.getCurrentFeed }}
-                </div></span
+                </span></span
               >
-              <span v-else>Hide Comments</span>
+              <span v-else class="clickable-area">
+                Hide Comments
+                <br />
+              </span>
             </div>
+            <div v-if="result.comment"><CommentView /></div>
             <br />
           </div>
           <div v-else>{{ result.title }}</div>
@@ -42,10 +51,10 @@
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import { useStore } from "vuex";
+import CommentView from "./CommentVIew.vue";
 const store = useStore();
 const call = store.getters.getCurrentFeed;
 const ids = ref([]);
-const showContent = ref(false);
 if (store.getters.getCurrentFeed == "TopStory") {
   ids.value = store.getters.getTopStoryID;
 } else if (store.getters.getCurrentFeed == "NewStory") {
@@ -80,6 +89,9 @@ async function fetchCurrentPageData() {
     const responses = await Promise.all(requests);
 
     apiResults.value = responses.map((response) => response.data);
+    for (const obj of apiResults.value) {
+      obj.comment = false;
+    }
 
     loading.value = false;
   } catch (err) {
@@ -100,6 +112,14 @@ function nextPage() {
     currentPage.value++;
   }
   fetchCurrentPageData();
+}
+function updateComment(result) {
+  {
+    {
+      store.commit("setComments", result.kids);
+    }
+  }
+  result.comment = !result.comment;
 }
 </script>
 
@@ -125,7 +145,6 @@ function nextPage() {
 }
 .clickable-area {
   cursor: pointer;
-  padding: 10px;
-  background-color: lightgray;
+  color: blue;
 }
 </style>
