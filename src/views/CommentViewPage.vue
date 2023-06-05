@@ -6,6 +6,7 @@
     </a>
     <p class="author">
       Posted by: <span>{{ Data.by }}</span>
+      {{ updateComment(Data) }}
       <CommentView />
     </p>
   </div>
@@ -17,9 +18,11 @@ import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import CommentView from "../components/CommentVIew.vue";
+import { useStore } from "vuex";
 const Data = ref(false);
 const loading = ref(false);
 const route = useRoute();
+const store = useStore();
 onMounted(() => {
   axios
     .get(
@@ -33,7 +36,16 @@ onMounted(() => {
       console.error("Error fetching data:", error);
     });
 });
+function updateComment(result) {
+  {
+    {
+      store.commit("setComments", result.kids);
+    }
+  }
+  result.comment = !result.comment;
+}
 </script>
+
 <style scoped>
 .post-design {
   background-color: #f1f1f1;

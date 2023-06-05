@@ -6,6 +6,7 @@ import NewStory from "../views/NewStories.vue";
 import BestStory from "../views/BestStories.vue";
 import UserView from "../views/UserView.vue";
 import CommentView from "../views/CommentViewPage.vue";
+import AskView from "../views/AskView.vue";
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: "/comment/:id",
     name: "comments",
     component: CommentView,
+  },
+  {
+    path: "/ask",
+    name: "ask",
+    component: AskView,
   },
 ];
 

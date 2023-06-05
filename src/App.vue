@@ -4,6 +4,7 @@
     <router-link to="/topstory"> | Top Stories</router-link>
     <router-link to="/beststory"> | Best Stories</router-link>
     <router-link to="/newstory"> | New Stories</router-link>
+    <router-link to="/ask"> | AsK </router-link>
   </nav>
   <router-view />
 </template>

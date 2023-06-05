@@ -45,7 +45,12 @@
                 <br />
               </span>
             </div>
-            <div v-if="result.comment"><CommentView /></div>
+            <!-- <div v-if="result.comment"><CommentView /></div> -->
+            <div v-if="result.comment">
+              <div v-for="kid in comarr" :key="kid">
+                <SingleView :arr="kid" />
+              </div>
+            </div>
             <br />
           </div>
           <div v-else>{{ result.title }}</div>
@@ -66,16 +71,20 @@
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import { useStore } from "vuex";
-import CommentView from "./CommentVIew.vue";
+//import CommentView from "./CommentVIew.vue";
+import SingleView from "./SingleView.vue";
 const store = useStore();
 const call = store.getters.getCurrentFeed;
 const ids = ref([]);
+const comarr = ref([]);
 if (store.getters.getCurrentFeed == "TopStory") {
   ids.value = store.getters.getTopStoryID;
 } else if (store.getters.getCurrentFeed == "NewStory") {
   ids.value = store.getters.getNewStoryID;
 } else if (store.getters.getCurrentFeed == "BestStory") {
   ids.value = store.getters.getBestStoryID;
+} else if (store.getters.getCurrentFeed == "AskStory") {
+  ids.value = store.getters.getAskStoryID;
 }
 
 const resultsPerPage = 10;
@@ -135,6 +144,7 @@ function updateComment(result) {
     }
   }
   result.comment = !result.comment;
+  comarr.value = result.kids;
 }
 </script>
 

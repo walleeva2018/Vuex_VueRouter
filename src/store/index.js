@@ -7,6 +7,7 @@ const store = createStore({
     BestStoryID: null,
     NewStoryID: null,
     Commnets: null,
+    AskStoryID: null,
   },
   mutations: {
     setTopStoryID(state, data) {
@@ -24,6 +25,9 @@ const store = createStore({
     setComments(state, data) {
       state.Commnets = data;
     },
+    setAskStoryID(state, data) {
+      state.AskStoryID = data;
+    },
   },
   getters: {
     getTopStoryID(state) {
@@ -40,6 +44,9 @@ const store = createStore({
     },
     getComments(state) {
       return state.Commnets;
+    },
+    getAskStoryID(state) {
+      return state.AskStoryID;
     },
   },
 });
